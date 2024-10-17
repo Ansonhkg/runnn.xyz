@@ -1,0 +1,46 @@
+{
+  "compilerOptions": {
+    // Enable latest features
+    "lib": [
+      "es6",
+      "dom"
+    ],
+    "target": "ES2022",
+    "module": "CommonJS",
+    "moduleDetection": "force",
+    "allowJs": true,
+    // Module resolution
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    // Strict Type-Checking Options
+    "strict": false,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    // Additional Checks
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    // Output Options
+    "outDir": "./dist",
+    "rootDir": "./src",
+    // Source Map Options
+    "sourceMap": true,
+    // Advanced Options
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts"
+  ]
+}
