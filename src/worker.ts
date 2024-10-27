@@ -1,16 +1,12 @@
-import { Worker } from 'bullmq';
+import { Job, Worker } from 'bullmq';
 import { redisConnectionOptions } from './services/redis';
-import { QUEUE_TYPES } from './type';
 import { debug } from './utils';
-import { handleTask } from './taskHandler';
+import { processTaskRequest } from './taskProcessor';
+import { TASK_TYPES, TaskRequest } from './type';
 
-const worker = new Worker(QUEUE_TYPES.TASK_QUEUE, async (job) => {
-  debug('Processing job:', job.id);
-
-  debug('Job data:', job.data);
-
-  // handle task with the provided conditions
-  await handleTask(job.data);
+const worker = new Worker(TASK_TYPES['user-task'], async (job: Job) => {
+  debug('[worker] job id:', job.id);
+  await processTaskRequest(job.data);
 }, {
   connection: redisConnectionOptions,
 });
@@ -34,5 +30,8 @@ worker.on('error', (error) => {
 worker.on('stalled', (jobId, prev) => {
   debug('Job stalled:', jobId, prev);
 });
+
+// set a new listner for a new job is added
+
 
 debug('🏃‍♂️ Worker started!');

@@ -20,6 +20,19 @@ export function checkRequiredEnvVars() {
 export function debug(...messages: any[]): void {
   const greyColor = '\x1b[90m';
   const resetColor = '\x1b[0m';
-  console.log(`${greyColor}[runnn.xyz]`, ...messages, resetColor);
+  console.log(`${greyColor}[runnn.xyz]${messages.join(' ')}`, resetColor.trim());
 }
 
+export function getValueFromResponse(responseValue: string, data: any): any {
+  return responseValue.split('.').reduce((acc: any, key: string) => {
+    // Match array notation like "users[0]"
+    const arrayMatch = key.match(/(\w+)\[(\d+)\]/);
+
+    if (arrayMatch) {
+      const [, arrayKey, index] = arrayMatch;
+      return acc?.[arrayKey]?.[parseInt(index)];
+    } else {
+      return acc?.[key];
+    }
+  }, data);
+}
